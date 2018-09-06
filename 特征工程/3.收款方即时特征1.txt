@@ -1,0 +1,14 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+select t1.*,t2.opposing_id_time_count,t2.back_sum_amt,t2.back_device_sign_count,t2.back_client_ip_count,t2.back_network_count,t2.back_operation_channel_count,t2.back_pay_scene_count,t2.back_user_id_count,t2.back_income_card_no_count,t2.back_income_card_mobile_count,t2.back_card_cert_no_count,t2.back_income_card_cert_no_count,t2.back_province_count,t2.back_income_card_bank_code_count,t2.back_ip_prov_count,t2.back_ip_city_count,t2.back_cert_prov_count,t2.back_cert_city_count,t2.back_card_bin_prov_count,t2.back_card_bin_city_count,t2.back_card_mobile_prov_count,t2.back_card_mobile_city_count,t2.back_card_cert_prov_count,t2.back_card_cert_city_count
+from ${t1} t1
+LEFT OUTER JOIN
+(select opposing_id,gmt_occur,count(amt) as opposing_id_time_count, sum(amt) as back_sum_amt,COUNT(DISTINCT device_sign) as back_device_sign_count,COUNT(DISTINCT client_ip) as back_client_ip_count,COUNT(DISTINCT network) as back_network_count,COUNT(DISTINCT operation_channel) as back_operation_channel_count,COUNT(DISTINCT pay_scene) as back_pay_scene_count,COUNT(DISTINCT user_id) as back_user_id_count,COUNT(DISTINCT income_card_no) as back_income_card_no_count,COUNT(DISTINCT income_card_mobile) as back_income_card_mobile_count,COUNT(DISTINCT card_cert_no) as back_card_cert_no_count,COUNT(DISTINCT income_card_cert_no) as back_income_card_cert_no_count,
+COUNT(DISTINCT province) as back_province_count,COUNT(DISTINCT income_card_bank_code) as back_income_card_bank_code_count,COUNT(DISTINCT ip_prov) as back_ip_prov_count,COUNT(DISTINCT ip_city) as back_ip_city_count,COUNT(DISTINCT cert_prov) as back_cert_prov_count,COUNT(DISTINCT cert_city) as back_cert_city_count,COUNT(DISTINCT card_bin_prov) as back_card_bin_prov_count,COUNT(DISTINCT card_bin_city) as back_card_bin_city_count,COUNT(DISTINCT card_mobile_prov) as back_card_mobile_prov_count,COUNT(DISTINCT card_mobile_city) as back_card_mobile_city_count,COUNT(DISTINCT card_cert_prov) as back_card_cert_prov_count,COUNT(DISTINCT card_cert_city) as back_card_cert_city_count
+from ${t1}
+group by opposing_id,gmt_occur) t2
+on (t1.opposing_id=t2.opposing_id) and (t1.gmt_occur=t2.gmt_occur)

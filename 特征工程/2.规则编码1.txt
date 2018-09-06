@@ -1,0 +1,13 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+select *,
+case when (income_card_bank_code is not null) or (province==cert_prov) or ((province==card_bin_prov)) or (province==card_mobile_prov) or  (province==card_cert_prov) or (ip_prov==province) or  (city==cert_city) or ((city==card_bin_city)) or (city==card_mobile_city) or  (city==card_cert_city) or (ip_city==city) or (income_card_cert_no is not null) or (income_card_mobile is not null) then 0 else 1 end as is_user_opposing,
+case when info_1==info_2 then 1 else 0 end as is_info,
+case when user_id==opposing_id then 0 else 1 end as is_equal_user_opposing,
+case when ( ip_prov=cert_prov and ip_prov=card_bin_prov and ip_prov=card_mobile_prov and ip_prov=card_cert_prov) then 0 else 1 end as is_prov_equal,
+case when ( ip_city=cert_city and ip_city=card_bin_city and ip_city=card_mobile_city and ip_city=card_cert_city ) then 0 else 1 end as is_city_equal
+from ${t1}

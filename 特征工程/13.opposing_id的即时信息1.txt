@@ -1,0 +1,10 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+select t2.*,t1.same_trains,t1.same_sum_amt,t1.same_avg_amt,t1.same_min_amt,t1.same_max_amt,t1.same_unique_client_ip2,t1.same_unique_operation_channel2,t1.same_unique_pay_scene2,t1.same_unique_is_one_people2,t1.same_unique_mobile_oper_platform2,t1.same_unique_version2,t1.same_unique_device_sign2,t1.same_unique_network2,t1.same_unique_info_12,t1.same_unique_info_22,t1.same_unique_ip_prov2,t1.same_unique_cert_prov2,t1.same_unique_card_bin_prov2,t1.same_unique_card_mobile_prov2,t1.same_unique_card_cert_prov2,t1.same_unique_card_cert_no2,t1.same_unique_province2
+from ${t2} t2
+LEFT OUTER JOIN ${t1} t1
+on t2.user_id=t1.user_id and to_date(t2.gmt_occur, 'yyyy-mm-dd hh')=t1.gmt_occur and  t2.opposing_id=t1.opposing_id

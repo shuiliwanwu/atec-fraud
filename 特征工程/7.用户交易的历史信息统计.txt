@@ -1,0 +1,9 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+select event_id,sum(amt2) as sumamt2,count(amt2) as sum_count,COUNT(DISTINCT client_ip2) as unique_client_ip,COUNT(DISTINCT network2) as unique_network,COUNT(DISTINCT device_sign2) as unique_device_sign,COUNT(DISTINCT info_12) as unique_info_1,COUNT(DISTINCT info_22) as unique_info_2,COUNT(DISTINCT ip_prov2) as unique_ip_prov,COUNT(DISTINCT ip_city2) as unique_ip_city,COUNT(DISTINCT cert_prov2) as unique_cert_prov,COUNT(DISTINCT cert_city2) as unique_cert_city,COUNT(DISTINCT card_bin_prov2) as unique_card_bin_prov,COUNT(DISTINCT card_bin_city2) as unique_card_bin_city,COUNT(DISTINCT card_mobile_prov2) as unique_card_mobile_prov,COUNT(DISTINCT card_mobile_city2) as unique_card_mobile_city,COUNT(DISTINCT card_cert_prov2) as unique_card_cert_prov,COUNT(DISTINCT card_cert_city2) as unique_card_cert_city,COUNT(DISTINCT is_one_people2) as unique_is_one_people,COUNT(DISTINCT mobile_oper_platform2) as unique_mobile_oper_platform,COUNT(DISTINCT operation_channel2) as unique_operation_channel,COUNT(DISTINCT pay_scene2) as unique_pay_scene,COUNT(DISTINCT card_cert_no2) as unique_card_cert_no,COUNT(DISTINCT opposing_id2) as unique_opposing_id,COUNT(DISTINCT province2) as unique_province,COUNT(DISTINCT city2) as unique_city,COUNT(DISTINCT is_peer_pay2) as unique_is_peer_pay,COUNT(DISTINCT version2) as unique_version
+from ${t1}
+group by event_id

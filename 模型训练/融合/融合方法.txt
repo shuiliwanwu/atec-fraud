@@ -1,0 +1,8 @@
+假设5个训练的结果为result1,result2,result3,result4,result5
+首先进行的是result1和result2的融合 result0.73=0.58*result1+0.42*result2,此处操作见图1，sql1.txt
+之后对result3和result4进行融合融合比例为resultnew=0.55*result4+0.45*result3,
+在得到融合值的基础上融合之前得到的result0.73，比例设置为result0.74=0.7*result0.73+0.3*resultnew,并经过sql2.txt，和图2做了一部分后处理操作。
+最后是根据result0.74和result4,result5进行融合融合比例为：result0.743=0.68*result0.74+0.12*result4+0.2*result5
+最后基于规则进行后处理，具体见图3和sql3.txt
+
+最终的结果表名为result743

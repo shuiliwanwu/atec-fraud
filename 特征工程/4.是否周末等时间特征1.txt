@@ -1,0 +1,26 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+select 
+	t2.*,
+	case when t2.dayofweek=5 or t2.dayofweek=6 then 1 else 0 end as is_weekend,
+    case when t2.dayofweek=0 then 1 else 0 end as is_week1,
+    case when t2.dayofweek=1 then 1 else 0 end as is_week2,
+    case when t2.dayofweek=2 then 1 else 0 end as is_week3,
+    case when t2.dayofweek=3 then 1 else 0 end as is_week4,
+    case when t2.dayofweek=4 then 1 else 0 end as is_week5,
+    case when t2.dayofweek=5 then 1 else 0 end as is_week6,
+    case when t2.dayofweek=6 then 1 else 0 end as is_week7,
+    case when t2.hour<=4 then 1 else 0 end as is_lingchen  
+    from
+    (
+        select 
+            t1.*,
+            datepart(t1.datetimes, 'dd') as day,
+            datepart(t1.datetimes, 'hh') as hour, 
+        	weekday(t1.datetimes) as dayofweek
+    	from (select *, to_date(gmt_occur, 'yyyy-mm-dd hh') as datetimes from ${t1}) t1
+    ) t2;

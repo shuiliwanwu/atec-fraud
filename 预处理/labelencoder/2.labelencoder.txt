@@ -1,0 +1,291 @@
+--½øÐÐlabelencoder
+drop table if exists xx;
+create table xx as
+select client_ip,dense_rank() over (order by client_ip ) client_ip_rank
+from dabai_train_testb;
+drop table if EXISTS  dabai_client_ip_rank1;
+create table dabai_client_ip_rank1 as
+select client_ip,max(client_ip_rank) as client_ip_rank
+from
+xx
+GROUP By client_ip;
+
+drop table if exists xx;
+create table xx as select network,dense_rank() over (order by network ) network_rank
+from dabai_train_testb;
+create table dabai_network_rank1 as
+select network,max(network_rank) as network_rank
+from
+xx
+GROUP BY network;
+
+drop table if exists xx;
+create table xx as select device_sign,dense_rank() over (order by device_sign ) device_sign_rank
+from dabai_train_testb;
+create table dabai_device_sign_rank1 as
+select device_sign,max(device_sign_rank) as device_sign_rank
+from
+xx
+GROUP BY device_sign;
+
+drop table if exists xx;
+create table xx as
+select info_1,dense_rank() over (order by info_1 ) info_1_rank
+from dabai_train_testb;
+create table dabai_info_1_rank1 as
+select info_1,max(info_1_rank) as info_1_rank
+from
+xx
+GROUP BY info_1;
+
+drop table if exists xx;
+create table xx as
+select info_2,dense_rank() over (order by info_2 ) info_2_rank
+from dabai_train_testb;
+create table dabai_info_2_rank1 as
+select info_2,max(info_2_rank) as info_2_rank
+from
+xx
+GROUP BY info_2;
+
+drop table if exists xx;
+create table xx as
+select ip_prov,dense_rank() over (order by ip_prov ) ip_prov_rank
+from dabai_train_testb;
+create table dabai_ip_prov_rank1 as
+select ip_prov,max(ip_prov_rank) as ip_prov_rank
+from
+xx
+GROUP BY ip_prov;
+
+drop table if exists xx;
+create table xx as
+select ip_city,dense_rank() over (order by ip_city ) ip_city_rank
+from dabai_train_testb;
+create table dabai_ip_city_rank1 as
+select ip_city,max(ip_city_rank) as ip_city_rank
+from
+xx
+GROUP BY ip_city;
+
+drop table if exists xx;
+create table xx as
+select cert_prov,dense_rank() over (order by cert_prov ) cert_prov_rank
+from dabai_train_testb;
+create table dabai_cert_prov_rank1 as
+select cert_prov,max(cert_prov_rank) as cert_prov_rank
+from
+xx
+GROUP BY cert_prov;
+
+drop table if exists xx;
+create table xx as
+select cert_city,dense_rank() over (order by cert_city) cert_city_rank
+from dabai_train_testb;
+create table dabai_cert_city_rank1 as
+select cert_city,max(cert_city_rank) as cert_city_rank
+from
+xx
+GROUP BY cert_city;
+
+drop table if exists xx;
+create table xx as
+select card_bin_prov,dense_rank() over (order by card_bin_prov) card_bin_prov_rank
+from dabai_train_testb;
+create table dabai_card_bin_prov_rank1 as
+select card_bin_prov,max(card_bin_prov_rank) as card_bin_prov_rank
+from
+xx
+GROUP BY card_bin_prov;
+
+drop table if exists xx;
+create table xx as
+select card_bin_city,dense_rank() over (order by card_bin_city) card_bin_city_rank
+from dabai_train_testb;
+create table dabai_card_bin_city_rank1 as
+select card_bin_city,max(card_bin_city_rank) as card_bin_city_rank
+from
+xx
+GROUP BY card_bin_city;
+
+drop table if exists xx;
+create table xx as
+select card_mobile_prov,dense_rank() over (order by card_mobile_prov) card_mobile_prov_rank
+from dabai_train_testb;
+create table dabai_card_mobile_prov_rank1 as
+select card_mobile_prov,max(card_mobile_prov_rank) as card_mobile_prov_rank
+from
+xx
+GROUP BY card_mobile_prov;
+
+drop table if exists xx;
+create table xx as
+select card_mobile_city,dense_rank() over (order by card_mobile_city) card_mobile_city_rank
+from dabai_train_testb;
+create table dabai_card_mobile_city_rank1 as
+select card_mobile_city,max(card_mobile_city_rank) as card_mobile_city_rank
+from
+xx
+GROUP BY card_mobile_city;
+
+drop table if exists xx;
+create table xx as
+select card_cert_prov,dense_rank() over (order by card_cert_prov) card_cert_prov_rank
+from dabai_train_testb;
+create table dabai_card_cert_prov_rank1 as
+select card_cert_prov,max(card_cert_prov_rank) as card_cert_prov_rank
+from
+xx
+GROUP BY card_cert_prov;
+
+drop table if exists xx;
+create table xx as
+select card_cert_city,dense_rank() over (order by card_cert_city) card_cert_city_rank
+from dabai_train_testb;
+create table dabai_card_cert_city_rank1 as
+select card_cert_city,max(card_cert_city_rank) as card_cert_city_rank
+from
+xx
+GROUP BY card_cert_city;
+
+drop table if exists xx;
+create table xx as
+select is_one_people,dense_rank() over (order by is_one_people) is_one_people_rank
+from dabai_train_testb;
+create table dabai_is_one_people_rank1 as
+select is_one_people,max(is_one_people_rank) as is_one_people_rank
+from
+xx
+GROUP BY is_one_people;
+
+drop table if exists xx;
+create table xx as
+select mobile_oper_platform,dense_rank() over (order by mobile_oper_platform) mobile_oper_platform_rank
+from dabai_train_testb;
+create table dabai_mobile_oper_platform_rank1 as
+select mobile_oper_platform,max(mobile_oper_platform_rank) as mobile_oper_platform_rank
+from
+xx
+GROUP BY mobile_oper_platform;
+
+drop table if exists xx;
+create table xx as
+select operation_channel,dense_rank() over (order by operation_channel) operation_channel_rank
+from dabai_train_testb;
+create table dabai_operation_channel_rank1 as
+select operation_channel,max(operation_channel_rank) as operation_channel_rank
+from
+xx
+GROUP BY operation_channel;
+
+drop table if exists xx;
+create table xx as
+select pay_scene,dense_rank() over (order by pay_scene) pay_scene_rank
+from dabai_train_testb;
+create table dabai_pay_scene_rank1 as
+select pay_scene,max(pay_scene_rank) as pay_scene_rank
+from
+xx
+GROUP BY pay_scene;
+
+drop table if exists xx;
+create table xx as
+select card_cert_no,dense_rank() over (order by card_cert_no) card_cert_no_rank
+from dabai_train_testb;
+create table dabai_card_cert_no_rank1 as
+select card_cert_no,max(card_cert_no_rank) as card_cert_no_rank
+from
+xx
+GROUP BY card_cert_no;
+
+drop table if exists xx;
+create table xx as
+select income_card_no,dense_rank() over (order by income_card_no) income_card_no_rank
+from dabai_train_testb;
+create table dabai_income_card_no_rank1 as
+select income_card_no,max(income_card_no_rank) as income_card_no_rank
+from
+xx
+GROUP BY income_card_no;
+
+drop table if exists xx;
+create table xx as
+select income_card_cert_no,dense_rank() over (order by income_card_cert_no) income_card_cert_no_rank
+from dabai_train_testb;
+create table dabai_income_card_cert_no_rank1 as
+select income_card_cert_no,max(income_card_cert_no_rank) as income_card_cert_no_rank
+from
+xx
+GROUP BY income_card_cert_no;
+
+
+drop table if exists xx;
+create table xx as
+select income_card_mobile,dense_rank() over (order by income_card_mobile) income_card_mobile_rank
+from dabai_train_testb;
+create table dabai_income_card_mobile_rank1 as
+select income_card_mobile,max(income_card_mobile_rank) as income_card_mobile_rank
+from
+xx
+GROUP BY income_card_mobile;
+
+
+drop table if exists xx;
+create table xx as
+select income_card_bank_code,dense_rank() over (order by income_card_bank_code) income_card_bank_code_rank
+from dabai_train_testb;
+create table dabai_income_card_bank_code_rank1 as
+select income_card_bank_code,max(income_card_bank_code_rank) as income_card_bank_code_rank
+from
+xx
+GROUP BY income_card_bank_code;
+
+drop table if exists xx;
+create table xx as
+select province,dense_rank() over (order by province) province_rank
+from dabai_train_testb;
+create table dabai_province_rank1 as
+select province,max(province_rank) as province_rank
+from
+xx
+GROUP BY province;
+
+drop table if exists xx;
+create table xx as
+select city,dense_rank() over (order by city) city_rank
+from dabai_train_testb;
+create table dabai_city_rank1 as
+select city,max(city_rank) as city_rank
+from
+xx
+GROUP BY city;
+
+drop table if exists xx;
+create table xx as
+select is_peer_pay,dense_rank() over (order by is_peer_pay) is_peer_pay_rank
+from dabai_train_testb;
+create table dabai_is_peer_pay_rank1 as
+select is_peer_pay,max(is_peer_pay_rank) as is_peer_pay_rank
+from
+xx
+GROUP BY is_peer_pay;
+
+drop table if exists xx;
+create table xx as
+select version,dense_rank() over (order by version) version_rank
+from dabai_train_testb;
+create table dabai_version_rank1 as
+select version,max(version_rank) as version_rank
+from
+xx
+GROUP BY version;
+
+drop table if exists xx;
+create table xx as
+select opposing_id,dense_rank() over (order by opposing_id) opposing_id_rank
+from dabai_train_testb;
+create table dabai_opposing_id_rank1 as
+select opposing_id,max(opposing_id_rank) as opposing_id_rank
+from
+xx
+GROUP BY opposing_id;

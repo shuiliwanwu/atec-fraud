@@ -1,0 +1,16 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+
+select t1.*,t2.device_sign_user_count,t2.device_sign_user_id,t2.device_sign_client_ip,t2.device_sign_network,t2.device_sign_operation_channel,t2.device_sign_pay_scene,t2.device_sign_amt_sum,t2.device_sign_card_bin_prov,t2.device_sign_card_mobile_prov,t2.device_sign_card_cert_prov
+from ${t1} t1
+LEFT OUTER JOIN
+(select device_sign,gmt_occur,count(user_id) as device_sign_user_count,COUNT(DISTINCT user_id) as device_sign_user_id,COUNT(DISTINCT client_ip) as device_sign_client_ip,COUNT(DISTINCT network) as device_sign_network,
+ COUNT(DISTINCT operation_channel) as device_sign_operation_channel,COUNT(DISTINCT pay_scene) as device_sign_pay_scene,sum(amt) as device_sign_amt_sum,COUNT(DISTINCT card_bin_prov) as device_sign_card_bin_prov,
+ COUNT(DISTINCT card_mobile_prov) as device_sign_card_mobile_prov, COUNT(DISTINCT card_cert_prov) as device_sign_card_cert_prov
+from ${t1}
+group by device_sign,gmt_occur) t2
+on (t1.device_sign=t2.device_sign) and (t1.gmt_occur=t2.gmt_occur)

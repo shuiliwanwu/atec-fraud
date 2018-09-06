@@ -1,0 +1,16 @@
+--输入数据已自动映射成t1~t4,使用方式如：select * from ${t1}
+--用户也可以直接输入ODPS表使用
+--如需自动获取上游读数据源组件配置的分区参数，可以使用${tp1}形式
+--本组件支持ODPS SQL的所有语法--该select查询语句的结果将为本组件的输出数据
+--支持格式化输入 ${yyyyMMdd +/- 3d}
+--使用PAI提供的UDF(内测功能): https://lark.alipay.com/ai/pai/udf
+
+select t1.*,t2.user_id_time_count,t2.sum_amt,t2.device_sign_count,t2.client_ip_count,t2.network_count,t2.operation_channel_count,t2.pay_scene_count,t2.opposing_id_count,t2.income_card_no_count,t2.income_card_mobile_count,t2.card_cert_no_count,t2.income_card_cert_no_count,t2.province_count,t2.income_card_bank_code_count
+
+from ${t1} t1
+LEFT OUTER JOIN
+(select user_id,gmt_occur,count(amt) as user_id_time_count, sum(amt) as sum_amt,COUNT(DISTINCT device_sign) as device_sign_count,COUNT(DISTINCT client_ip) as client_ip_count,COUNT(DISTINCT network) as network_count,COUNT(DISTINCT operation_channel) as operation_channel_count,COUNT(DISTINCT pay_scene) as pay_scene_count,COUNT(DISTINCT opposing_id) as opposing_id_count,COUNT(DISTINCT income_card_no) as income_card_no_count,COUNT(DISTINCT income_card_mobile) as income_card_mobile_count,COUNT(DISTINCT card_cert_no) as card_cert_no_count,COUNT(DISTINCT income_card_cert_no) as income_card_cert_no_count,
+COUNT(DISTINCT province) as province_count,COUNT(DISTINCT income_card_bank_code) as income_card_bank_code_count
+from ${t1}
+group by user_id,gmt_occur) t2
+on (t1.user_id=t2.user_id) and (t1.gmt_occur=t2.gmt_occur)

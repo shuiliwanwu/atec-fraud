@@ -1,0 +1,2 @@
+利用pai控件进行join操作
+之后得到训练集和测试集labelencoder以及原始的特征的表：表名分别为dabai_trainval_label，dabai_testb_label

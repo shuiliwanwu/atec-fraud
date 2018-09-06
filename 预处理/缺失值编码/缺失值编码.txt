@@ -1,0 +1,79 @@
+drop table if EXISTS  dabai_all_nullcode_2;
+
+create table dabai_all_nullcode_2 as
+select event_id,
+case when (client_ip is NULL) then 1 else 0 end as client_ip_null,
+case when (network is null) then 1 else 0 end as network_null,
+
+case when (device_sign is NULL) then 1 else 0 end as device_sign_null,
+case when (info_1 is null) then 1 else 0 end as info_1_null,
+
+case when (ip_prov is NULL) then 1 else 0 end as ip_prov_null,
+case when (info_2 is null) then 1 else 0 end as info_2_null,
+
+case when (ip_city is NULL) then 1 else 0 end as ip_city_null,
+case when (cert_prov is null) then 1 else 0 end as cert_prov_null,
+
+case when (card_bin_prov is NULL) then 1 else 0 end as card_bin_prov_null,
+case when (cert_city is null) then 1 else 0 end as cert_city_null,
+
+case when (card_bin_city is NULL) then 1 else 0 end as card_bin_city_null,
+case when (card_mobile_prov is null) then 1 else 0 end as card_mobile_prov_null,
+case when (card_mobile_city is null) then 1 else 0 end as card_mobile_city_null,
+
+case when (card_cert_prov is null) then 1 else 0 end as card_cert_prov_null,
+case when (card_cert_city is null) then 1 else 0 end as card_cert_city_null,
+
+case when (card_cert_no is null) then 1 else 0 end as card_cert_no_null,
+case when (income_card_no is null) then 1 else 0 end as income_card_no_null,
+
+case when (income_card_cert_no is null) then 1 else 0 end as income_card_cert_no_null,
+case when (income_card_mobile is null) then 1 else 0 end as income_card_mobile_null,
+
+case when (income_card_bank_code is null) then 1 else 0 end as income_card_bank_code_null,
+case when (province is null) then 1 else 0 end as province_null,
+case when (city is null) then 1 else 0 end as city_null,
+
+case when (is_peer_pay is null) then 1 else 0 end as is_peer_pay_null,
+case when (version is null) then 1 else 0 end as version_null
+from atec_1000w_ootb_data;
+
+drop table if EXISTS  dabai_all_nullcode_1;
+
+create table dabai_all_nullcode_1 as
+select event_id,
+case when (client_ip is NULL) then 1 else 0 end as client_ip_null,
+case when (network is null) then 1 else 0 end as network_null,
+
+case when (device_sign is NULL) then 1 else 0 end as device_sign_null,
+case when (info_1 is null) then 1 else 0 end as info_1_null,
+
+case when (ip_prov is NULL) then 1 else 0 end as ip_prov_null,
+case when (info_2 is null) then 1 else 0 end as info_2_null,
+
+case when (ip_city is NULL) then 1 else 0 end as ip_city_null,
+case when (cert_prov is null) then 1 else 0 end as cert_prov_null,
+
+case when (card_bin_prov is NULL) then 1 else 0 end as card_bin_prov_null,
+case when (cert_city is null) then 1 else 0 end as cert_city_null,
+
+case when (card_bin_city is NULL) then 1 else 0 end as card_bin_city_null,
+case when (card_mobile_prov is null) then 1 else 0 end as card_mobile_prov_null,
+case when (card_mobile_city is null) then 1 else 0 end as card_mobile_city_null,
+
+case when (card_cert_prov is null) then 1 else 0 end as card_cert_prov_null,
+case when (card_cert_city is null) then 1 else 0 end as card_cert_city_null,
+
+case when (card_cert_no is null) then 1 else 0 end as card_cert_no_null,
+case when (income_card_no is null) then 1 else 0 end as income_card_no_null,
+
+case when (income_card_cert_no is null) then 1 else 0 end as income_card_cert_no_null,
+case when (income_card_mobile is null) then 1 else 0 end as income_card_mobile_null,
+
+case when (income_card_bank_code is null) then 1 else 0 end as income_card_bank_code_null,
+case when (province is null) then 1 else 0 end as province_null,
+case when (city is null) then 1 else 0 end as city_null,
+
+case when (is_peer_pay is null) then 1 else 0 end as is_peer_pay_null,
+case when (version is null) then 1 else 0 end as version_null
+from atec_1000w_ins_data
